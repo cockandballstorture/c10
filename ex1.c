@@ -27,7 +27,7 @@ void one(){
 	FILE *f;
 	int *p;
 	scanf("%d",&a);
-	int *c=a;
+	int c[2];
 	p=(int*)malloc(a*sizeof(int));
 	srand(time(NULL));
 	for (i=0;i<a;i++){
@@ -36,10 +36,11 @@ void one(){
 	f=fopen("C:cr.txt","w+b");
 	c[1]=a;
 	c[0]=1;
-	fwrite(c[0], sizeof(int*),1,f);
-	fwrite(c[1], sizeof(int*),1,f);
+	fwrite(&c[0], sizeof(int*),1,f);
+	fwrite(&c[1], sizeof(int*),1,f);
 	for (i=0;i<a;i++){
-		fwrite(p[i], sizeof(int*),1,f);
+		fwrite(p, sizeof(int*),1,f);
+		p++;
 	}
 	fclose(f);
 	free(p);
@@ -48,9 +49,10 @@ void two(){
 	int a,i,j,b;
 	FILE *f;
 	int *p;
+	int c;
 	scanf("%d",&a);
 	scanf("%d",&b);
-	int *c=a;
+	int c[3];
 	p=(int*)malloc(a*b*sizeof(int));
 	srand(time(NULL));
 	for (j=0;j<a;j++){
@@ -62,60 +64,51 @@ void two(){
 	c[2]=a;
 	c[0]=2;
 	c[1]=b;
-	fwrite(c[0], sizeof(int*),1,f);
-	fwrite(c[1], sizeof(int*),1,f);
-	fwrite(c[2], sizeof(int*),1,f);
+	fwrite(&c[0], sizeof(int*),1,f);
+	fwrite(&c[1], sizeof(int*),1,f);
+	fwrite(&c[2], sizeof(int*),1,f);
 	for (j=0;j<a;j++){
 			for (i=0;i<b;i++){
-				fwrite(p[j*a+i], sizeof(int*),1,f);
+				fwrite(p, sizeof(int*),1,f);
+				p++;
 			}
 		  }
 	fclose(f);
 	free(p);
 }
 void fri(){
-    int x,y,z;
+    int x,y,z,i,j,k;
     FILE *f;
     scanf("%d",&x);
     scanf("%d",&y);
     scanf("%d",&z);
-	int *c=x;
-	int*** a = NULL;
-	int* data;
-	int** ptrs;
-	int i, j, k, q;
-	a = (int***) malloc(x * sizeof(int**) +x*y * sizeof(int*) +x*y*z * sizeof(int));
-
-	ptrs = (int**) (a + x);
-	data = (int*) (a + y + y*z);
-	q = 0;
+    int *p;
+    int c[3];
+    p=(int*)malloc(x*y*z*sizeof(int));
+	f=fopen("C:cr.txt","w+b");
 	srand(time(NULL));
 	for (i = 0; i < x; i++) {
-	    a[i] = ptrs + i*y;
-	    for (j = 0; j < x; j++) {
-	        a[i][j] = rand();
-	    }
-	}
-	f=fopen("C:cr.txt","w+b");
+			    for (j = 0; j < x; j++) {
+			    	for (k = 0; k< x;k++){
+			    		p[i*x*y+j*x+k]=rand();
+			    }
+			   }
+			}
 	c[2]=x;
 	c[0]=3;
 	c[1]=y;
 	c[2]=z;
-	fwrite(c[0], sizeof(int*),1,f);
-	fwrite(c[1], sizeof(int*),1,f);
-	fwrite(c[2], sizeof(int*),1,f);
-	fwrite(c[3], sizeof(int*),1,f);
+	fwrite(&c[0], sizeof(int*),1,f);
+	fwrite(&c[1], sizeof(int*),1,f);
+	fwrite(&c[2], sizeof(int*),1,f);
+	fwrite(&c[3], sizeof(int*),1,f);
 	for (i = 0; i < x; i++) {
 		    for (j = 0; j < x; j++) {
-		    	fwrite(a[i][j], sizeof(int**),1,f);
+		    	for (k = 0; k< x;k++){
+		    	fwrite(p, sizeof(int**),1,f);
+		    }
 		    }
 		}
-	for (i = 0; i < x; i++) {
-		free(a[i]);
-			    for (j = 0; j < x; j++) {
-			    	free(a[i][j]);
-			    }
-			}
 	fclose(f);
-	free(a);
+	free(p);
 }

@@ -48,7 +48,7 @@ int one(int a){
 		fread(&p, sizeof(int*),1,f);
 		w[i];
 	}
-	return(w)
+	return w;
 }
 int two(int a,int b){
 	int i,j;
@@ -66,7 +66,7 @@ int two(int a,int b){
 			w[i][j]=p;
 			}
 }
-		return(w);
+		return w;
 }
 int fri(int a,int b,int c){
 	int i,j,k;
@@ -86,5 +86,5 @@ int fri(int a,int b,int c){
 					}
 				}
 			}
-			return(w);
+			return w;
 }
